@@ -6,6 +6,6 @@
 
 
 int main() {
-    TradingSpace::Good g("Oil", 1,0.4,0.8,1.02);
+    TradingSpace::Account a;
 
 }
