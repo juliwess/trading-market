@@ -1,9 +1,11 @@
+#include <market.hpp>
+#include <good.hpp>
+#include <trader.hpp>
+#include <account.hpp>
+#include <iostream>
 
-/**
-    @brief a dog that barks
-*/
-class Dog {
-    //! hey
-};
 
-int main(){}
+int main() {
+    TradingSpace::Good g("Oil", 1,0.4,0.8,1.02);
+
+}

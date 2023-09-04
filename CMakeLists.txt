@@ -23,9 +23,12 @@ set(CMAKE_BUILD_TYPE Release)
 
  #setup the global variable SRC_FILES to target
  #files to be compiled
- file(GLOB SRC_FILES
-  ${PROJECT_SOURCE_DIR}/src/*.cpp)
+ file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
+ add_executable(demo
+ examples/demo.cpp
+ ${SRC_FILES}
+)
 
 
 #----------------------------------------------#
@@ -89,9 +92,6 @@ enable_testing()
 #----------------------------------------------#
 
 
-add_executable(demo
-examples/demo.cpp
-${SRF_FILES})
 
 
 #----------------------------------------------#
