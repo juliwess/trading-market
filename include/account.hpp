@@ -1,8 +1,8 @@
-
+#pragma once
 
 
 namespace TradingSpace {
-    
+    //! @brief each Trader will posses one account to manage his balance of the fictive currency
     class Account {
         public:
             Account();

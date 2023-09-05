@@ -7,5 +7,7 @@
 
 int main() {
     TradingSpace::Account a;
+    TradingSpace::Trader t(a);
+    
 
 }
