@@ -21,4 +21,13 @@ namespace TradingSpace {
    void Account::withdraw(const float& amount) {
         balance -= amount;
    }
+
+   //!Getters and setters
+   float Account::get_balance() const{
+    return balance;
+   }
+
+   void Account::set_balance(float& bal) {
+        balance = bal;
+   }
 } // namespace TradingSpace
