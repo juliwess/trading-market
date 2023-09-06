@@ -20,9 +20,21 @@ int main() {
     m.addTrader(c);
     m.addTrader(d);
     m.addTrader(e);
-
-    for(const auto& in : m.get_traders()) {
-        std::cout<<in.get_id();
+    
+    auto& g = m.get_goods();
+    
+    for(int i=0; i<= 30; i++) {
+        for(auto& [first, second]: g) {
+            std::cout << first << ": " << second.get_value() << "\n";
+            second.adapt();
+        }
+        std::cout<<"\n";
     }
+    
+
+ 
+    
+
+    
 
 }

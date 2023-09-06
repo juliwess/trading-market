@@ -13,7 +13,9 @@ namespace TradingSpace {
             virtual void buy(Good& g, int amount);
             virtual void sell(Good& g, int amount);
 
-            //! Getter and setter
+            /**
+             *  Getter and setter
+             **/
             virtual Account get_account() const;
             virtual void set_account(Account& acc);
 
@@ -21,6 +23,9 @@ namespace TradingSpace {
             virtual void set_id(int& id);
 
             virtual int get_instances() const;
+            /**
+             *  Getter and setter
+             **/
 
             //! The Trader-Class will implement the opeartor== to use the unordered set
             bool operator==(const Trader& other) const;
