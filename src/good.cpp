@@ -4,11 +4,17 @@
 #include <iostream>
 namespace TradingSpace {
 
+    /**
+     * GoodHash object will be used to implement an unordered_map that uses Goods as Keys
+    */
+    size_t GoodHash::operator()(const Good& g) const {
+        return std::hash<int>{}(g.get_id());
+    }
     
 
-    Good::Good(std::string name, float start_value, float tendency,
+    Good::Good(int id, std::string name, float start_value, float tendency,
     float step_size, float average_change)
-     : name(name), value(start_value), tendency(tendency), step_size(step_size), average_change(average_change)
+     : id(id), name(name), value(start_value), tendency(tendency), step_size(step_size), average_change(average_change)
     {}
 
     //!Implementation of a random walk that generates the current value of the product
@@ -36,12 +42,25 @@ namespace TradingSpace {
         return name;
     }
 
+    int Good::get_id() const {
+        return id;
+    }
+
     /**
      * Getter and setter
      **/
 
+
+    /**
+     * OPERATOR
+    */
     bool Good::operator<(const Good& other) const {
         return value < other.get_value();
     }
-    
+    bool Good::operator==(const Good& other) const {
+        return value == other.get_value();
+    }
+    /**
+     * OPERATOR
+    */
 } // namespace TradingSpace

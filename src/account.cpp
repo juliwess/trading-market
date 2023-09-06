@@ -27,7 +27,7 @@ namespace TradingSpace {
     return balance;
    }
 
-   void Account::set_balance(float& bal) {
+   void Account::set_balance(const float& bal) {
         balance = bal;
    }
 } // namespace TradingSpace

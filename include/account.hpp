@@ -14,7 +14,7 @@ namespace TradingSpace {
 
             //! Getters and setters
             virtual float get_balance() const;
-            virtual void set_balance(float& bal);
+            virtual void set_balance(const float& bal);
         private:
             float balance;
     };

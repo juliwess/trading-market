@@ -14,9 +14,9 @@ namespace TradingSpace {
             virtual void removeTrader(Trader& trader);
 
             //! Getter and setter
-            virtual std::unordered_set<Trader, TraderHash>& get_traders() const;
+            virtual std::unordered_set<Trader, TraderHash>& get_traders();
 
-            virtual std::unordered_map<std::string, Good>& get_goods() const;
+            virtual std::unordered_map<std::string, Good>& get_goods();
 
         private:
             std::unordered_set<Trader, TraderHash> traders;

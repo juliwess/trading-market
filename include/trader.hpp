@@ -1,14 +1,15 @@
 #pragma once
 #include <account.hpp>
 #include <good.hpp>
+#include <unordered_map>
 
 namespace TradingSpace {
 
     
-    //! The trader class will be the main class to interact with the market
+    //! @brief The trader class will be the main class to interact with the market
     class Trader {
         public:
-            Trader(Account& acc);
+            Trader();
             //! Buy or sell a certain amount of a chosen good
             virtual void buy(Good& g, int amount);
             virtual void sell(Good& g, int amount);
@@ -16,13 +17,15 @@ namespace TradingSpace {
             /**
              *  Getter and setter
              **/
-            virtual Account get_account() const;
+            virtual Account& get_account();
             virtual void set_account(Account& acc);
 
             virtual int get_id() const;
             virtual void set_id(int& id);
 
             virtual int get_instances() const;
+
+            virtual std::unordered_map<Good, int, GoodHash> get_traders_goods() const;
             /**
              *  Getter and setter
              **/
@@ -34,10 +37,14 @@ namespace TradingSpace {
             Account account;
             int id;
 
+            //! Traders_goods saves the amount a trader's got of each individual good
+            std::unordered_map<Good, int, GoodHash> traders_goods;
+
+            //! The instances of traders will be count in a public variable to generate a unique ID
             static int instances;
     };
 
-    //! An object of this class will later be used to create an unordered set of traders 
+    //! @brief An object of this class will later be used to create an unordered set of traders 
     class TraderHash {
         public:
             size_t operator() (const Trader& t) const;
