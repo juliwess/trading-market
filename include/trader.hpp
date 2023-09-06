@@ -20,9 +20,16 @@ namespace TradingSpace {
             virtual int get_id() const;
             virtual void set_id(int& id);
 
+            virtual int get_instances() const;
+
+            //! The Trader-Class will implement the opeartor== to use the unordered set
+            bool operator==(const Trader& other) const;
+
         private:
             Account account;
             int id;
+
+            static int instances;
     };
 
     //! An object of this class will later be used to create an unordered set of traders 
