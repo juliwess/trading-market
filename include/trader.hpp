@@ -11,8 +11,8 @@ namespace TradingSpace {
         public:
             Trader();
             //! Buy or sell a certain amount of a chosen good
-            virtual void buy(Good& g, int amount);
-            virtual void sell(Good& g, int amount);
+            virtual void buy(const Good& g, int amount);
+            virtual void sell(const Good& g, int amount);
 
             /**
              *  Getter and setter
@@ -25,7 +25,7 @@ namespace TradingSpace {
 
             virtual int get_instances() const;
 
-            virtual std::unordered_map<Good, int, GoodHash> get_traders_goods() const;
+            virtual std::unordered_map<std::string, int>& get_traders_goods();
             /**
              *  Getter and setter
              **/
@@ -38,7 +38,7 @@ namespace TradingSpace {
             int id;
 
             //! Traders_goods saves the amount a trader's got of each individual good
-            std::unordered_map<Good, int, GoodHash> traders_goods;
+            std::unordered_map<std::string, int> traders_goods;
 
             //! The instances of traders will be count in a public variable to generate a unique ID
             static int instances;

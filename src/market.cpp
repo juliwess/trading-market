@@ -1,4 +1,7 @@
 #include <market.hpp>
+#include <chrono>
+#include <thread>
+#include <iostream>
 
 namespace TradingSpace {
 
@@ -24,6 +27,12 @@ namespace TradingSpace {
 
     void Market::removeTrader(Trader& trader) {
         traders.erase(trader);
+    }   
+
+    void Market::update_values() {
+        for(auto& [first,second] : goods) {
+            second.adapt();
+        }
     }
 
 
@@ -42,5 +51,8 @@ namespace TradingSpace {
     /**
      * GETTER AND SETTER
     */
+
+
+
 
 } // namespace TradingSpace
