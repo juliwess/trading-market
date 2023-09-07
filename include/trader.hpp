@@ -14,6 +14,12 @@ namespace TradingSpace {
             virtual void buy(const Good& g, int amount);
             virtual void sell(const Good& g, int amount);
 
+            //! The Trader class will also implement a set_balance, deposit and withdraw function to avoid complications
+            // when using the function in python
+            virtual void set_balance(const float& bal);
+            virtual void withdraw(const float& amount);
+            virtual void deposit(const float& amount);
+
             /**
              *  Getter and setter
              **/

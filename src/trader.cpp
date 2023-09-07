@@ -47,11 +47,25 @@ namespace TradingSpace {
         int new_amount = old_amount - amount;
 
         //Does the trader posses enough to sell the requested amount?
-        if(new_amount > 0) {
+        if(new_amount >= 0) {
             traders_goods.insert_or_assign(g.get_name(), new_amount);
             get_account().deposit(amount * g.get_value());
         }
     }
+
+    void Trader::set_balance(const float& bal) {
+        get_account().set_balance(bal);
+    }
+
+    void Trader::deposit(const float& amount) {
+        get_account().deposit(amount);
+    }
+
+    void Trader::withdraw(const float& amount) {
+        get_account().withdraw(amount);
+    }
+
+
 
 
     /**

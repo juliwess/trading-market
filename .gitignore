@@ -5,3 +5,5 @@ build
 docs
 
 .DS_Store
+
+*.so
