@@ -12,13 +12,14 @@ namespace TradingSpace {
             //! Add and remove traders from the market
             virtual void addTrader(Trader& trader);
             virtual void removeTrader(Trader& trader);
+            virtual void removeTraderById(int id);
 
             virtual void update_values();
 
             /**
              * Getter and setter
              */ 
-            virtual std::unordered_set<Trader, TraderHash>& get_traders();
+            virtual std::unordered_map<int, Trader>& get_traders();
 
             virtual std::unordered_map<std::string, Good>& get_goods();
             /**
@@ -27,7 +28,7 @@ namespace TradingSpace {
 
 
         private:
-            std::unordered_set<Trader, TraderHash> traders;
+            std::unordered_map<int, Trader> traders;
             std::unordered_map<std::string, Good> goods;
     };
 } // namespace TradingSpace

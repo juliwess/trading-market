@@ -14,6 +14,7 @@ PYBIND11_MODULE(market, m) {
   .def(py::init<>())
   .def("addTrader", &Market::addTrader)
   .def("removeTrader", &Market::removeTrader)
+  .def("removeTraderById", &Market::removeTraderById)
   .def("update_values", &Market::update_values)
   .def("get_traders", &Market::get_traders)
   .def("get_goods", &Market::get_goods);

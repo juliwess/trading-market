@@ -22,12 +22,16 @@ namespace TradingSpace {
     }
 
     void Market::addTrader(Trader& trader) {
-        traders.insert(trader);
+        traders.insert({trader.get_id(), trader});
     }
 
     void Market::removeTrader(Trader& trader) {
-        traders.erase(trader);
+        traders.erase(trader.get_id());
     }   
+
+    void Market::removeTraderById(int id) {
+        traders.erase(id);
+    }
 
     void Market::update_values() {
         for(auto& [first,second] : goods) {
@@ -40,7 +44,7 @@ namespace TradingSpace {
      * GETTER AND SETTER
     */
 
-    std::unordered_set<Trader, TraderHash>& Market::get_traders() {
+    std::unordered_map<int, Trader>& Market::get_traders() {
         return traders;
     }
 
