@@ -4,6 +4,7 @@
 
 
 namespace TradingSpace {
+
     //! @brief The Goods can be bought and sold in the market 
     class Good {
         public:
@@ -52,12 +53,6 @@ namespace TradingSpace {
             float average_change;
     };
 
-    /**
-     * @brief the class GoodHash will be used to implement an unordered_map with the Good as key
-    */
-    class GoodHash {
-        public:
-            size_t operator() (const Good& g) const;
-    };
+    
 
 }; // namespace TradingSpace

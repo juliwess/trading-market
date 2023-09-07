@@ -4,13 +4,6 @@
 #include <iostream>
 namespace TradingSpace {
 
-    /**
-     * GoodHash object will be used to implement an unordered_map that uses Goods as Keys
-    */
-    size_t GoodHash::operator()(const Good& g) const {
-        return std::hash<int>{}(g.get_id());
-    }
-    
 
     Good::Good(int id, std::string name, float start_value, float tendency,
     float step_size, float average_change)

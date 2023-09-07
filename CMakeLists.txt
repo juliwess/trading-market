@@ -7,13 +7,10 @@ cmake_minimum_required(VERSION 3.14)
 
 project(market)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_BUILD_TYPE Release)
-# Optional: Prüfe alle Targets auf Speicherlecks
- add_compile_options(-fsanitize=address)
- add_link_options(-fsanitize=address)
 
  #Add the include directories
 
@@ -23,12 +20,7 @@ set(CMAKE_BUILD_TYPE Release)
 
  #setup the global variable SRC_FILES to target
  #files to be compiled
- file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
- add_executable(demo
- examples/demo.cpp
- ${SRC_FILES}
-)
 
 
 #----------------------------------------------#
@@ -54,9 +46,6 @@ if (DOXYGEN_FOUND)
 else (DOXYGEN_FOUND)
   message("Doxygen need to be installed to generate the doxygen documentation")
 endif (DOXYGEN_FOUND)
-
-
-
 
 #----------------------------------------------#
 #----Download and configure GOOGLE-Test--------#
@@ -87,11 +76,62 @@ enable_testing()
 
 
 
+find_package(pybind11 REQUIRED)
+
+#Create Variable to specify the source files to be compiled
+file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+
+
+
+#----------------------------------------------#
+#-------------------Pybind---------------------#
+#----------------------------------------------#
+
+#add pybind-modules
+pybind11_add_module(market
+  extra/pybind_files/pybind-market.cpp
+  ${SRC_FILES}
+)
+
+pybind11_add_module(trader
+  extra/pybind_files/pybind-trader.cpp
+  ${SRC_FILES}
+)
+
+pybind11_add_module(good
+  extra/pybind_files/pybind-good.cpp
+  ${SRC_FILES}
+)
+
+pybind11_add_module(account
+  extra/pybind_files/pybind-good.cpp
+  ${SRC_FILES}
+)
+#install pybind-modules
+install(TARGETS market
+  COMPONENT python
+  LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/extra")
+
+install(TARGETS trader
+  COMPONENT python
+  LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/extra")
+  
+install(TARGETS good
+  COMPONENT python
+  LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/extra")
+
+install(TARGETS account
+  COMPONENT python
+  LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/extra")
+
 #----------------------------------------------#
 #-------------Creating main-executables--------#
 #----------------------------------------------#
 
-
+add_executable(demo
+examples/demo.cpp
+${SRC_FILES}
+)
 
 
 #----------------------------------------------#
