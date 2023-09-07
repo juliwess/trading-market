@@ -12,7 +12,6 @@ PYBIND11_MODULE(account, m) {
   
   py::class_<Account>(m, "Account")
   .def(py::init<>())
-  .def(py::init<const float&>())
   .def("withdraw", &Account::withdraw)
   .def("deposit", &Account::deposit)
   .def("get_balance", &Account::get_balance)

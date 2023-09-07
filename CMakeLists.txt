@@ -104,7 +104,7 @@ pybind11_add_module(good
 )
 
 pybind11_add_module(account
-  extra/pybind_files/pybind-good.cpp
+  extra/pybind_files/pybind-account.cpp
   ${SRC_FILES}
 )
 #install pybind-modules
