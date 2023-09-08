@@ -27,11 +27,6 @@ async def addTrader():
     print(m.get_traders())
     return {"trader-id" : t.get_id()}
 
-#get a trade with his user-id
-@apiobj.get("/user/{id}")
-async def get_current_user(id: int):
-    return {"trader-id" : m.get_traders().get(id).get_name()}
-
 #remove a trader
 @apiobj.get("/remove-trader/{id}")
 async def remove(id: int):
@@ -39,8 +34,20 @@ async def remove(id: int):
     print(m.get_traders())
     return{"trader-id" : id}
 
+#get a trade with his user-id
+@apiobj.get("/trader/{id}")
+async def getTrader(id: int):
+    return {"trader-id" : m.get_trader_by_id(id).get_name()}
+
+
+
 #set password
 @apiobj.get("/set-password/{id}/{passw}")
 async def new_pw(id: int, passw: str):
     m.set_trader_password(id, passw)
     return {"password" : m.get_traders().get(id).get_pw()}
+
+@apiobj.get("/validate/{id}/{passw}")
+async def val(id: int, passw: str):
+    access = m.get_trader_by_id(id).validate(passw)
+    return {"result" : access}

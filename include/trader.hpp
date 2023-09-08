@@ -20,6 +20,9 @@ namespace TradingSpace {
             virtual void withdraw(const float& amount);
             virtual void deposit(const float& amount);
 
+            //! Checks wether the entered password is correct
+            virtual bool validate(std::string pw);
+
             /**
              *  Getter and setter
              **/
@@ -32,7 +35,6 @@ namespace TradingSpace {
             virtual int get_instances() const;
 
             virtual int get_pw() const;
-
             virtual void set_pw(std::string pw);
 
             virtual std::unordered_map<std::string, int>& get_traders_goods();

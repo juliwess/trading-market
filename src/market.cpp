@@ -55,6 +55,10 @@ namespace TradingSpace {
     void Market::set_trader_password(int id, std::string pw) {
         get_traders().at(id).set_pw(pw);
     }
+
+    Trader& Market::get_trader_by_id(int id) {
+        return traders.at(id);
+    }
     /**
      * GETTER AND SETTER
     */

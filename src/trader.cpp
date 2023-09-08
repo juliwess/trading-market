@@ -64,6 +64,10 @@ namespace TradingSpace {
         get_account().withdraw(amount);
     }
 
+    bool Trader::validate(std::string paw) {
+        int candidate = std::hash<std::string>{}(paw);
+        return candidate == this->pw;
+    }
 
 
 

@@ -17,6 +17,7 @@ PYBIND11_MODULE(trader, m) {
   .def("set_balance", &Trader::set_balance)
   .def("deposit", &Trader::deposit)
   .def("withdraw", &Trader::withdraw)
+  .def("validate", &Trader::validate)
   .def("get_account", &Trader::get_account)
   .def("set_account", &Trader::set_account)
   .def("get_id", &Trader::get_id)
