@@ -16,7 +16,9 @@ namespace TradingSpace {
         account = acc;
         id = instances;
         instances += 1;
+        pw = std::hash<std::string>{}((std::to_string(id)));
     }
+
 
     /**
      * Buy and sell Goods
@@ -53,10 +55,7 @@ namespace TradingSpace {
         }
     }
 
-    void Trader::set_balance(const float& bal) {
-        get_account().set_balance(bal);
-    }
-
+    
     void Trader::deposit(const float& amount) {
         get_account().deposit(amount);
     }
@@ -71,6 +70,11 @@ namespace TradingSpace {
     /**
      * GETTER AND SETTER
     */
+
+    void Trader::set_balance(const float& bal) {
+        get_account().set_balance(bal);
+    }
+
     Account& Trader::get_account(){
         return account;
     }
@@ -93,6 +97,14 @@ namespace TradingSpace {
 
     std::unordered_map<std::string, int>& Trader::get_traders_goods() {
         return traders_goods;
+    }
+
+    int Trader::get_pw() const{
+        return pw;
+    }
+
+    void Trader::set_pw(std::string pw) {
+        this->pw = std::hash<std::string>{}(pw);
     }
     /**
      * GETTER AND SETTER

@@ -22,6 +22,8 @@ namespace TradingSpace {
             virtual std::unordered_map<int, Trader>& get_traders();
 
             virtual std::unordered_map<std::string, Good>& get_goods();
+
+            virtual void set_trader_password(int id, std::string pw);
             /**
              * Getter and setter
              */ 

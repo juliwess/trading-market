@@ -17,5 +17,6 @@ PYBIND11_MODULE(market, m) {
   .def("removeTraderById", &Market::removeTraderById)
   .def("update_values", &Market::update_values)
   .def("get_traders", &Market::get_traders)
-  .def("get_goods", &Market::get_goods);
+  .def("get_goods", &Market::get_goods)
+  .def("set_trader_password", &Market::set_trader_password);
 }

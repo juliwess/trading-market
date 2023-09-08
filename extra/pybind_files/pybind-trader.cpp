@@ -23,6 +23,8 @@ PYBIND11_MODULE(trader, m) {
   .def("set_id", &Trader::set_id)
   .def("get_instances", &Trader::get_instances)
   .def("get_traders_goods", &Trader::get_traders_goods)
+  .def("get_pw", &Trader::get_pw)
+  .def("set_pw", &Trader::set_pw)
   .def("operator==", &Trader::operator==);
 
 }

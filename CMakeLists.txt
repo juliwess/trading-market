@@ -133,6 +133,11 @@ examples/demo.cpp
 ${SRC_FILES}
 )
 
+add_executable(t
+examples/test.cpp
+${SRC_FILES}
+)
+
 
 #----------------------------------------------#
 #-------------Creating test programs-----------#

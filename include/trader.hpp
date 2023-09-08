@@ -31,6 +31,10 @@ namespace TradingSpace {
 
             virtual int get_instances() const;
 
+            virtual int get_pw() const;
+
+            virtual void set_pw(std::string pw);
+
             virtual std::unordered_map<std::string, int>& get_traders_goods();
             /**
              *  Getter and setter
@@ -43,6 +47,7 @@ namespace TradingSpace {
             Account account;
             int id;
 
+            int pw;
             //! Traders_goods saves the amount a trader's got of each individual good
             std::unordered_map<std::string, int> traders_goods;
 

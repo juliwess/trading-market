@@ -1,17 +1,22 @@
 import requests
+import threading
+import time
 from pprint import pprint as pretty_print # Für übersichtliche Textausgabe
 
-def print_response(ressource_id = ""):
-    base_api_url = "http://localhost:8000/"
-    response = requests.get(base_api_url + ressource_id)
-    content = response.json()
-    print(f"Status Code: {response.status_code}; Content -> ", end='')
-    pretty_print(content)
+def thread_function():
+    while(True):
+        requests.get("http://localhost:8000/refresh-values")
+        time.sleep(10)
+
 
 def main():
-    print_response()
-    print_response("add-trader")
-    print_response("remove-trader/1")
+    #The updater Thread continuously refreshes the values
+    updater = threading.Thread(target=thread_function, args=(), daemon=True)
+
+    updater.start()
+
+    input()
+    # x.join()
 
 if __name__ == '__main__':
     main()
