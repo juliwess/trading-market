@@ -22,6 +22,7 @@ namespace TradingSpace {
     }
 
     void Market::addTrader(Trader& trader) {
+        trader.set_balance(20.0F);
         traders.insert({trader.get_id(), trader});
     }
 
@@ -37,6 +38,11 @@ namespace TradingSpace {
         for(auto& [first,second] : goods) {
             second.adapt();
         }
+    }
+
+    void Market::trader_buy(int id, std::string good_name, int amount){
+        Trader& t = traders.at(id);
+        t.buy(goods.at(good_name), amount);
     }
 
 
@@ -58,6 +64,10 @@ namespace TradingSpace {
 
     Trader& Market::get_trader_by_id(int id) {
         return traders.at(id);
+    }
+
+    float Market::get_traders_balance(int id) {
+        return traders.at(id).get_account().get_balance();
     }
     /**
      * GETTER AND SETTER

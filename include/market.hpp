@@ -14,7 +14,11 @@ namespace TradingSpace {
             virtual void removeTrader(Trader& trader);
             virtual void removeTraderById(int id);
 
+            //!Update the prices for each good
             virtual void update_values();
+
+            //! Lets the trader buy goods
+            virtual void trader_buy(int id, std::string good_name, int amount);
 
             /**
              * Getter and setter
@@ -26,6 +30,8 @@ namespace TradingSpace {
             virtual void set_trader_password(int id, std::string pw);
 
             virtual Trader& get_trader_by_id(int id);
+
+            virtual float get_traders_balance(int id);
             /**
              * Getter and setter
              */ 
