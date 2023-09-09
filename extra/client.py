@@ -1,6 +1,7 @@
 import requests
 import threading
 import time
+import json
 from pprint import pprint as pretty_print # Für übersichtliche Textausgabe
 
 
@@ -8,20 +9,55 @@ from pprint import pprint as pretty_print # Für übersichtliche Textausgabe
 #The login function will be called when a trader that already existed tries to access the market
 def login() -> int:
     base_api = "http://localhost:8000"
-    trader_id = input("Enter your id please")
-    pasw = input("Enter your password")
+    
+    #A trader id must always contain at least one character
+    trader_id = ""
+    while(trader_id == ""):
+        trader_id = input("Enter your ID please")
+
+        #Did the trader enter something that is not a number?
+        try:
+            int(trader_id)
+        except ValueError as e:
+            trader_id = ""
+            print("Invalid")
+    
+    #A password cant't be empty
+    pasw = ""
+    while(pasw == ""):
+            pasw = input("Enter your password")
+
+    #If the result can't be fetched the ID must be invalid
+    try:
+        requests.get(base_api + "/validate/" + trader_id + "/" + pasw).json().get("result")
+        
+    except json.decoder.JSONDecodeError as e:
+        print("Invalid trader_id! Please try again")
+        login()
 
     #check wether password and id are compatible
     counter = 0
-    while(not requests.get(base_api + "/validate/" + trader_id + "/" + pasw).json().get("result")):
-        print(str(5 - counter) + " trie(s) left")
-        pasw = input("Enter your password")      
-        counter += 1
-        if(counter == 5):
-            print("Your account will be deleted, you'll have to create a new one")
-            delete_account(trader_id)
-            break
-        return id
+    
+    # You've got 5 tries to login the loop only runs if you have a low enough amount of tries and enter the wrong password
+    while(not requests.get(base_api + "/validate/" + str(trader_id) + "/" + str(pasw)).json().get("result") and counter != 5):
+       print("Wrong password")
+       print(str(5 - counter) + " try/tries left")
+       counter += 1
+       pasw = input("Try again: ")
+       print(requests.get(base_api + "/validate/" + str(trader_id) + "/" + str(pasw)).json().get("result"))
+       
+       #Right pw entered?
+       if(requests.get(base_api + "/validate/" + str(trader_id) + "/" + str(pasw)).json().get("result")):
+        return trader_id
+    
+    # Right pw entered?
+    if(requests.get(base_api + "/validate/" + str(trader_id) + "/" + str(pasw)).json().get("result")):
+        return trader_id
+    
+    #if a trader enters faulty too many times his account will be removed
+    print("Too many false tries, your account will be deleted")
+    requests.get(base_api + "/remove-trader/" +str(trader_id))
+    return trader_id
 
 
 
@@ -30,8 +66,11 @@ def new_account() -> int:
     base_api = "http://localhost:8000"
     id = requests.get(base_api + "/add-trader").json().get("trader-id")
     print("Your id is: " + str(id))
-    new_pw = input("Choose your password: ")
+    new_pw = ""
+    while(new_pw == ""):
+        new_pw = input("Choose your password: ")
     requests.get(base_api + "/set-password/" + str(id) + "/" + new_pw)
+
     return id
 
 #Delete an existing account
@@ -70,26 +109,39 @@ def main():
             choice_made = True
         else:
             print("Not a valid choice")
+            choice_made = input("Enter again: ")
+    
+    #Print the traders balance
+    print("-------------------------")
+    balance = requests.get(base_api + "/balance/" + str(trader_id)).json().get("balance")
+    print(f"Your balance: {balance}$")
 
+    #Print the available goods
+    print("-------------------------")
     print("Those are the available goods")
    
     print_goods()
 
-    print("-------------------------")
-    balance = requests.get(base_api + "/balance/" + str(trader_id)).json().get("balance")
-    print("Your balance is: " + str(balance))
+    
     
 
     print("To refresh the prices press[1], to buy a good press[2] and to sell press [3] and to exit press [4]")
     choice = input()
 
+    #Runs as long as the trader doesn't decide to exit
     while(choice != str(4)):
+        #print the goods
         if(choice == str(1)):
             print_goods()
-            choice = input()
+            choice = input("To refresh the prices press[1], to buy a good press[2] and to sell press [3] and to exit press [4]")
+        #bus something
         elif(choice == str(2)):
             good_to_buy = input("Which good would you like to buy?")
             amount = input("How many would you like to buy?")
+            requests.get(f"{base_api}/buy/{trader_id}/{good_to_buy}/{amount}")
+            balance = requests.get(base_api + "/balance/" + str(trader_id)).json().get("balance")
+            print(f"Your balance: {round(balance, 2)}$")
+            choice = input("To refresh the prices press[1], to buy a good press[2] and to sell press [3] and to exit press [4]")
 
 
     
