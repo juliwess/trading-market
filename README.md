@@ -14,4 +14,4 @@ Therefore the following requirements should be met:
 
 # setup the project 
 
-`#RRGGBB`sadfadf`#RRGGBB`
+`cmake -S . -B build && cmake --build build && cmake --install build`
