@@ -45,6 +45,10 @@ namespace TradingSpace {
         t.buy(goods.at(good_name), amount);
     }
 
+    void Market::trader_sell(int id, std::string good_name, int amount) {
+        Trader& t = traders.at(id);
+        t.sell(goods.at(good_name), amount);
+    }
 
     /**
      * GETTER AND SETTER

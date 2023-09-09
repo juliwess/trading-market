@@ -17,6 +17,13 @@ namespace TradingSpace {
         id = instances;
         instances += 1;
         pw = std::hash<std::string>{}((std::to_string(id)));
+
+        traders_goods.insert({"Bricks", 0});
+        traders_goods.insert({"Oil",0});
+        traders_goods.insert({"Wood", 0});
+        traders_goods.insert({"Iron", 0});
+        traders_goods.insert({"Gas", 0});
+        traders_goods.insert({"Chemicals", 0});
     }
 
 

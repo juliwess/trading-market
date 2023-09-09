@@ -20,7 +20,7 @@ m = Market()
 def thread_function():
     while(True):
         requests.get("http://localhost:8000/refresh-values")
-        time.sleep(10)
+        time.sleep(50)
 
 #refreshes the values of each good
 @apiobj.get("/refresh-values")
@@ -71,10 +71,22 @@ async def getGoods():
         marketgoods[key] = val.get_value()
     return marketgoods
 
+#Return a dictinoary of the goods in the traders posession
+@apiobj.get("/get-traders-goods/{id}")
+async def getTradersGoods(id: int):
+    t = m.get_trader_by_id(id)
+    
+    return t.get_traders_goods()
+
 #Buy a chosen amount of a good
-@apiobj.get("/buy/{id}/{good}/{amount}")
+@apiobj.post("/buy/{id}/{good}/{amount}")
 async def buyGood(id: int, good: str, amount: int):
     m.trader_buy(id, good, amount)
+
+#Sell a chosen amount of a good
+@apiobj.post("/sell/{id}/{good}/{amount}")
+async def sell(id: int, good: str, amount: int):
+    m.trader_sell(id, good, amount)
 
 
 if __name__ == '__main__':

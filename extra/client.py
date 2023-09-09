@@ -78,11 +78,29 @@ def delete_account(id : int):
     base_api = "http://localhost:8000"
     requests.post(base_api + "/remove-trader/" + str(id))
 
+#Basic print functions
+#
+#
 def print_goods():
     base_api = "http://localhost:8000"
     av_goods = requests.get(base_api + "/get-goods").json()
     for key,val in av_goods.items():
-        print(key + ": " + str(round(val,2)))
+        print(key + ": " + str(round(val,2)) + "$")
+
+def print_traders_goods(trader_id: int):
+    base_api = "http://localhost:8000"
+    traders_goods = requests.get(f"{base_api}/get-traders-goods/{trader_id}").json()
+    for key,val in traders_goods.items():
+        print(f"{key}: {val}")
+
+def print_balance(trader_id: int):
+    base_api = "http://localhost:8000"
+    balance = requests.get(base_api + "/balance/" + str(trader_id)).json().get("balance")
+    print(f"Your balance: {balance}$")
+
+#
+#
+#Basic print functions
 
 def main():
     
@@ -113,37 +131,50 @@ def main():
     
     #Print the traders balance
     print("-------------------------")
-    balance = requests.get(base_api + "/balance/" + str(trader_id)).json().get("balance")
-    print(f"Your balance: {balance}$")
+    print_balance(trader_id)
+
+    print("Your goods: ")
+    print_traders_goods(trader_id)
 
     #Print the available goods
     print("-------------------------")
-    print("Those are the available goods")
+    print("Those are the prices for the goods")
    
     print_goods()
 
     
     
 
-    print("To refresh the prices press[1], to buy a good press[2] and to sell press [3] and to exit press [4]")
-    choice = input()
+    choice = input("[1]Refresh the prices press [2]buy a good [3] sell [4]display goods [5]exit")
 
     #Runs as long as the trader doesn't decide to exit
-    while(choice != str(4)):
+    while(choice != str(5)):
         #print the goods
         if(choice == str(1)):
             print_goods()
-            choice = input("To refresh the prices press[1], to buy a good press[2] and to sell press [3] and to exit press [4]")
-        #bus something
+            choice = input("[1]Refresh the prices press [2]buy a good [3] sell [4]display goods [5]exit")
+        #buy something
         elif(choice == str(2)):
             good_to_buy = input("Which good would you like to buy?")
             amount = input("How many would you like to buy?")
-            requests.get(f"{base_api}/buy/{trader_id}/{good_to_buy}/{amount}")
+            requests.post(f"{base_api}/buy/{trader_id}/{good_to_buy}/{amount}")
             balance = requests.get(base_api + "/balance/" + str(trader_id)).json().get("balance")
             print(f"Your balance: {round(balance, 2)}$")
-            choice = input("To refresh the prices press[1], to buy a good press[2] and to sell press [3] and to exit press [4]")
-
-
+            choice = input("[1]Refresh the prices press [2]buy a good [3] sell [4]display goods [5]exit")
+        #sell something
+        elif(choice == str(3)):
+            good_to_buy = input("Which good would you like to sell")
+            amount = input("How many would you like to sell?")
+            requests.post(f"{base_api}/sell/{trader_id}/{good_to_buy}/{amount}")
+            balance = requests.get(base_api + "/balance/" + str(trader_id)).json().get("balance")
+            print(f"Your balance: {round(balance, 2)}$")
+            choice = input("[1]Refresh the prices press [2]buy a good [3] sell [4]display goods [5]exit")
+        #show balance
+        elif(choice == str(4)):
+            print_traders_goods(trader_id)
+            balance = requests.get(base_api + "/balance/" + str(trader_id)).json().get("balance")
+            print(f"Your balance: {round(balance, 2)}$")
+            choice = input("[1]Refresh the prices press [2]buy a good [3] sell [4]display goods [5]exit")
     
    
 

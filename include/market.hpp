@@ -20,6 +20,9 @@ namespace TradingSpace {
             //! Lets the trader buy goods
             virtual void trader_buy(int id, std::string good_name, int amount);
 
+            //! Lets the trader sell goods
+            virtual void trader_sell(int id, std::string good_name, int amount);
+
             /**
              * Getter and setter
              */ 
