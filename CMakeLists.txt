@@ -107,6 +107,7 @@ pybind11_add_module(account
   extra/pybind_files/pybind-account.cpp
   ${SRC_FILES}
 )
+
 #install pybind-modules
 install(TARGETS market
   COMPONENT python
@@ -124,6 +125,22 @@ install(TARGETS account
   COMPONENT python
   LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/extra")
 
+#install pybind-modules into the other directory
+install(TARGETS market
+  COMPONENT python
+  LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/extra/GUI")
+
+install(TARGETS trader
+  COMPONENT python
+  LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/extra/GUI")
+  
+install(TARGETS good
+  COMPONENT python
+  LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/extra/GUI")
+
+install(TARGETS account
+  COMPONENT python
+  LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/extra/GUI")
 #----------------------------------------------#
 #-------------Creating main-executables--------#
 #----------------------------------------------#
