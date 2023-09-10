@@ -7,6 +7,7 @@
 namespace py = pybind11;
 using namespace TradingSpace;
 
+//! Create a new module called market
 PYBIND11_MODULE(market, m) {
   m.doc() = "Market";
   

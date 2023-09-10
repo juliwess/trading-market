@@ -62,15 +62,19 @@ namespace TradingSpace {
         }
     }
 
-    
+    /// @brief Deposit a chosen amount
+    /// @param amount amount to be deposited
     void Trader::deposit(const float& amount) {
         get_account().deposit(amount);
     }
 
+    /// @brief Withdraw a chosen amount
+    /// @param amount amount to be withdrawn
     void Trader::withdraw(const float& amount) {
         get_account().withdraw(amount);
     }
 
+    //! Validate the password
     bool Trader::validate(std::string paw) {
         int candidate = std::hash<std::string>{}(paw);
         return candidate == this->pw;

@@ -6,6 +6,7 @@ import uvicorn
 import os
 import json
 import requests
+import csv
 from market import Market
 from trader import Trader
 from account import Account
@@ -20,11 +21,21 @@ m = Market()
 def thread_function():
     while(True):
         requests.get("http://localhost:8000/refresh-values")
-        time.sleep(50)
+        time.sleep(5)
 
 #refreshes the values of each good
 @apiobj.get("/refresh-values")
 async def refresh():
+    #Write the current value of all goods in a csv sheet
+    with open('GUI/values.csv', 'w', newline='') as csvfile:
+            spamwriter = csv.writer(csvfile, delimiter=',',
+                                    quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            
+            for key,value in m.get_goods().items():
+                spamwriter.writerow([value.get_value()])
+
+
+
     m.update_values()
     for key,value in m.get_traders().items():
         print(str(key) + str(value.get_pw()))

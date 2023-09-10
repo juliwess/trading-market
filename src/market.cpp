@@ -2,14 +2,16 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
+#include <fstream>
 
 namespace TradingSpace {
 
+    //!The constructor adds the goods and their start values to the market
     Market::Market() {
         Good bricks(1, "Bricks", 1, 1.2, 0.5, 0.7);
-        Good oil(2, "Oil", 10, 0.2, 0.5, 0.3);
-        Good wood(3,"Wood", 5, 1.8, 0.5, 0.9);
-        Good iron(4,"Iron", 3, 1.6, 0.5, 0.1);
+        Good oil(2, "Oil", 7, 0.2, 0.5, 0.3);
+        Good wood(3,"Wood", 5, 0.45, 0.5, 0.4);
+        Good iron(4,"Iron", 3, 0.36, 0.5, 0.1);
         Good gas(5,"Gas", 0.5, 0.6, 0.5, 0.2);
         Good chemicals(6,"Chemicals", 15, 1.2, 0.5, 0.8);
 
@@ -21,30 +23,36 @@ namespace TradingSpace {
         goods.insert({"Chemicals", chemicals});
     }
 
+    //!Add a trader to the market
     void Market::addTrader(Trader& trader) {
         trader.set_balance(20.0F);
         traders.insert({trader.get_id(), trader});
     }
 
+    //!Remove a trader from the market
     void Market::removeTrader(Trader& trader) {
         traders.erase(trader.get_id());
     }   
 
+    //!Remove a trader from the market using his id
     void Market::removeTraderById(int id) {
         traders.erase(id);
     }
 
+    //!Update the values
     void Market::update_values() {
         for(auto& [first,second] : goods) {
             second.adapt();
         }
     }
 
+    //! Let a trader buy a good of his choice 
     void Market::trader_buy(int id, std::string good_name, int amount){
         Trader& t = traders.at(id);
         t.buy(goods.at(good_name), amount);
     }
 
+    //! Let a trader sell a good of his choice
     void Market::trader_sell(int id, std::string good_name, int amount) {
         Trader& t = traders.at(id);
         t.sell(goods.at(good_name), amount);

@@ -2,6 +2,7 @@
 #include <trader.hpp>
 #include <good.hpp>
 #include <unordered_map>
+#include <map>
 #include <unordered_set>
 
 namespace TradingSpace {
