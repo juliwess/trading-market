@@ -3,17 +3,34 @@
 #include <thread>
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 
 namespace TradingSpace {
 
+    
+
     //!The constructor adds the goods and their start values to the market
     Market::Market() {
-        Good bricks(1, "Bricks", 1, 1.2, 0.5, 0.7);
-        Good oil(2, "Oil", 7, 0.2, 0.5, 0.3);
-        Good wood(3,"Wood", 5, 0.45, 0.5, 0.4);
-        Good iron(4,"Iron", 3, 0.36, 0.5, 0.1);
-        Good gas(5,"Gas", 0.5, 0.6, 0.5, 0.2);
-        Good chemicals(6,"Chemicals", 15, 1.2, 0.5, 0.8);
+        //!Generate random values for the goods random walk
+        float r = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r2 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r3 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r4 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r5 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r6 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r7 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r8 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r9 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r10 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r11 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+        float r12 = -1 + static_cast <float> (std::rand()) /( static_cast <float> (RAND_MAX/(1+1)));
+
+        Good bricks(1, "Bricks", 1, r, 0.5, r2);
+        Good oil(2, "Oil", 7, r3, 0.5, r4);
+        Good wood(3,"Wood", 5, r5, 0.5, r6);
+        Good iron(4,"Iron", 3, r7, 0.5, r8);
+        Good gas(5,"Gas", r9, 0.6, 0.5, r10);
+        Good chemicals(6,"Chemicals", 15, r11, 0.5, r12);
 
         goods.insert({"Bricks", bricks});
         goods.insert({"Oil",oil});

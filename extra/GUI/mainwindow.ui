@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="login">
+   <widget class="QPushButton" name="loginButton">
     <property name="geometry">
      <rect>
       <x>340</x>

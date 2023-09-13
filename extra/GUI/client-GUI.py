@@ -2,16 +2,17 @@ import sys
 import time
 import random
 import csv
+from ui_mainwindow import Ui_MainWindow
 from PySide6            import QtCore, QtWidgets, QtGui
 from PySide6.QtCore     import Qt, QPointF, QThread
 from PySide6.QtGui      import QPainter
-from PySide6.QtWidgets  import QApplication, QMainWindow
+from PySide6.QtWidgets  import QApplication, QMainWindow, QBoxLayout
 from PySide6.QtCharts   import QLineSeries, QChart, QChartView
 
 
 
-# Ein Hintergrundtimer, welcher die gegebene Anzahl von Sekunden wartet
-# Das Ende des Timers kann eine Callbackfunktion auslösen (siehe unten)
+
+#adding a backgroundtimer that waits a certain amount of time
 class BackgroundTimer(QThread):
   def __init__(self, duration):
     super().__init__()
@@ -21,19 +22,17 @@ class BackgroundTimer(QThread):
     time.sleep(self.duration)
 
 
-# Ein Widget zum Anzeigen eines dynamisch veränderlichen Verlaufsdiagrams
+#Initialising the chart
 class MyWidget(QtWidgets.QWidget):
   def __init__(self):
     super().__init__()
     
+    #Adding a maximum value for the zoom to work properly
     self.max = 5
+    self.tick = 0
     
-    #
-    # Verlaufsdiagram
-    #
-    
-    # QLineSeries für Datenpunkte
-    self.series = QLineSeries()  # Erzeuge Datenpunkte
+    # QLineSeries for datapoints
+    self.series = QLineSeries()  
     self.series2 = QLineSeries()
     self.series3 = QLineSeries()
     self.series4 = QLineSeries()
@@ -42,8 +41,7 @@ class MyWidget(QtWidgets.QWidget):
 
 
     # Füge mehrere Datenpunkte hinzu
-    self.series << QPointF(5, 1) << QPointF(6, 3) << QPointF(7, 6)
-    self.tick = 7
+
     
     # QChart für Beschreibung des Kurvendiagrams
     self.chart = QChart()          # Erzeuge die Beschreibung eines Kurvendiagrams
@@ -73,9 +71,8 @@ class MyWidget(QtWidgets.QWidget):
 
     
     # Hintergrundtimer
-    self.backgroundtimer = BackgroundTimer(0.3)
-    self.backgroundtimer.finished.connect(self.add_pt_to_chart)
-    self.backgroundtimer.start() # Starte Hintergrundtimer im Hintergrund
+    self.backgroundtimer = BackgroundTimer(0.5)
+    self.add_pt_to_chart()
 
   def add_pt_to_chart(self):
     self.tick = self.tick + 1
@@ -111,13 +108,27 @@ class MyWidget(QtWidgets.QWidget):
     
     self.backgroundtimer.start() # Starte Hintergrundtimer im Hintergrund
 
+class MainWindow(QMainWindow):
+   def __init__(self):
+        super(MainWindow, self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        chart = MyWidget()
+        chart.show()
 
+   
+
+
+
+
+
+      
 
 if __name__ == "__main__":
   app = QtWidgets.QApplication([])
+ 
+  window = MainWindow()
+  window.show()
 
-  widget = MyWidget()
-  widget.resize(800, 600)
-  widget.show()
 
   sys.exit(app.exec())

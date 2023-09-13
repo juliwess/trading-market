@@ -26,9 +26,9 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 600)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.login = QPushButton(self.centralwidget)
-        self.login.setObjectName(u"login")
-        self.login.setGeometry(QRect(340, 120, 100, 32))
+        self.loginButton = QPushButton(self.centralwidget)
+        self.loginButton.setObjectName(u"loginButton")
+        self.loginButton.setGeometry(QRect(340, 120, 100, 32))
         self.verticalLayoutWidget = QWidget(self.centralwidget)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
         self.verticalLayoutWidget.setGeometry(QRect(120, 70, 201, 131))
@@ -81,7 +81,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.login.setText(QCoreApplication.translate("MainWindow", u"Login", None))
+        self.loginButton.setText(QCoreApplication.translate("MainWindow", u"Login", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Id:", None))
         self.lineEdit.setText("")
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Password:", None))
