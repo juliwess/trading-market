@@ -2,7 +2,9 @@
 
 build
 
-docs
+docs/html
+docs/latex
+
 
 .DS_Store
 
