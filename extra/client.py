@@ -102,8 +102,17 @@ def print_balance(trader_id: int):
 #
 #Basic print functions
 
+def updater():
+    while(True):
+        base_api = "http://localhost:8000"
+        requests.get(base_api + "/refresh-values")
+        print("Worked")
+        time.sleep(5)
+
 def main():
     
+    update_thread = threading.Thread(target=updater, daemon=True)
+    update_thread.start()
 
     #The base_api is the part of the URI that will always stay the same
     base_api = "http://localhost:8000"

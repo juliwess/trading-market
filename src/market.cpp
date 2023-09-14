@@ -29,7 +29,7 @@ namespace TradingSpace {
         Good oil(2, "Oil", 7, r3, 0.5, r4);
         Good wood(3,"Wood", 5, r5, 0.5, r6);
         Good iron(4,"Iron", 3, r7, 0.5, r8);
-        Good gas(5,"Gas", r9, 0.6, 0.5, r10);
+        Good gas(5,"Gas", 4, r9, 0.5, r10);
         Good chemicals(6,"Chemicals", 15, r11, 0.5, r12);
 
         goods.insert({"Bricks", bricks});

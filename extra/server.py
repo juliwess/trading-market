@@ -18,9 +18,11 @@ apiobj = FastAPI()
 #Only one market will exist
 m = Market()
 
-def thread_function():
+def updater():
     while(True):
-        requests.get("http://localhost:8000/refresh-values")
+        base_api = "http://localhost:8000"
+        requests.get(base_api + "/refresh-values")
+        print("Worked")
         time.sleep(5)
 
 #refreshes the values of each good
@@ -101,8 +103,7 @@ async def sell(id: int, good: str, amount: int):
 
 
 if __name__ == '__main__':
-    #The updater Thread continuously refreshes the values
-    updater = threading.Thread(target=thread_function, args=(), daemon=True)
-    updater.start()
+    
+    
     this_python_file = os.path.basename(__file__)[:-3]
     instance = uvicorn.run(f"{this_python_file}:apiobj", host="127.0.0.1", port=8000, log_level="info", reload=True)
