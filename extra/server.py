@@ -73,7 +73,12 @@ async def new_pw(id: int, passw: str):
 #check wether a password and an id fit together
 @apiobj.get("/validate/{id}/{passw}")
 async def val(id: int, passw: str):
-    access = m.get_trader_by_id(id).validate(passw)
+    try:
+        access = m.get_trader_by_id(id).validate(passw)
+    except IndexError as e:
+        access = None
+    
+    
     return {"result" : access}
 
 #Return the goods

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form.ui'
+## Form generated from reading UI file 'login.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.0
 ##
@@ -22,10 +22,10 @@ class Ui_LoginWindow(object):
     def setupUi(self, LoginWindow):
         if not LoginWindow.objectName():
             LoginWindow.setObjectName(u"LoginWindow")
-        LoginWindow.resize(800, 600)
+        LoginWindow.resize(235, 223)
         self.layoutWidget = QWidget(LoginWindow)
         self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(170, 130, 201, 101))
+        self.layoutWidget.setGeometry(QRect(20, 60, 201, 101))
         self.verticalLayout_2 = QVBoxLayout(self.layoutWidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -38,10 +38,10 @@ class Ui_LoginWindow(object):
 
         self.horizontalLayout.addWidget(self.label)
 
-        self.lineEdit = QLineEdit(self.layoutWidget)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.lineEditID = QLineEdit(self.layoutWidget)
+        self.lineEditID.setObjectName(u"lineEditID")
 
-        self.horizontalLayout.addWidget(self.lineEdit)
+        self.horizontalLayout.addWidget(self.lineEditID)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -53,10 +53,10 @@ class Ui_LoginWindow(object):
 
         self.horizontalLayout_2.addWidget(self.label_2)
 
-        self.lineEdit_2 = QLineEdit(self.layoutWidget)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
+        self.lineEditPassword = QLineEdit(self.layoutWidget)
+        self.lineEditPassword.setObjectName(u"lineEditPassword")
 
-        self.horizontalLayout_2.addWidget(self.lineEdit_2)
+        self.horizontalLayout_2.addWidget(self.lineEditPassword)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -78,6 +78,7 @@ class Ui_LoginWindow(object):
     def retranslateUi(self, LoginWindow):
         LoginWindow.setWindowTitle(QCoreApplication.translate("LoginWindow", u"LoginWindow", None))
         self.label.setText(QCoreApplication.translate("LoginWindow", u"ID:", None))
+        self.lineEditID.setText("")
         self.label_2.setText(QCoreApplication.translate("LoginWindow", u"Password:", None))
         self.loginButton.setText(QCoreApplication.translate("LoginWindow", u"Login", None))
     # retranslateUi

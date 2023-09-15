@@ -19,7 +19,7 @@ from PySide6.QtCore import Slot
 # You need to run the following command to generate the ui_form.py file
 #     pyside6-uic form.ui -o ui_form.py, or
 #     pyside2-uic form.ui -o ui_form.py
-from ui_form import Ui_LoginWindow
+from ui_login import Ui_LoginWindow
 
 
 def update():
@@ -31,66 +31,49 @@ def update():
 
 class LoginWindow(QWidget):
     def __init__(self, parent=None):
+        #setup the ui
         super().__init__(parent)
         self.ui = Ui_LoginWindow()
         self.ui.setupUi(self)
-        self.ui.loginButton.clicked.connect(login)
+
+        #declare password and id
+        self.ID: int
+        self.password: str
+
+        #connecdt lineEdits to their corresponding slot functions
+        self.ui.lineEditID.textChanged.connect(self.updateID)
+        self.ui.lineEditPassword.textChanged.connect(self.updatePassword)
+        self.ui.loginButton.clicked.connect(self.login)
 
 
 
-@Slot()
-def login() -> int:
-    base_api = "http://localhost:8000"
+    @Slot()
+    def updateID(self) -> int:
+        self.ID = self.ui.lineEditID.text()
+        return self.ID
+    
 
-    #A trader id must always contain at least one character
-    trader_id = ""
-    while(trader_id == ""):
-        trader_id = input("Enter your ID please")
+    @Slot()
+    def updatePassword(self) -> int: 
+        self.password = self.ui.lineEditPassword.text()
+        return self.password
 
-        #Did the trader enter something that is not a number?
-        try:
-            int(trader_id)
-        except ValueError as e:
-            trader_id = ""
-            print("Invalid")
+    @Slot()
+    def login(self) -> int:
+        base_api = "http://localhost:8000"
+        id = str(self.ID)
+        pw = str(self.password)
+        
+        
+        resp: requests.Response = requests.get(base_api + "/validate/" + id + "/" + pw)
 
-    #A password cant't be empty
-    pasw = ""
-    while(pasw == ""):
-            pasw = input("Enter your password")
+        if(resp == None):
+            return None
+        
+        if(resp == False):
+            return None
 
-    #If the result can't be fetched the ID must be invalid
-    try:
-        requests.get(base_api + "/validate/" + trader_id + "/" + pasw).json().get("result")
-
-    except json.decoder.JSONDecodeError as e:
-        print("Invalid trader_id! Please try again")
-        login()
-
-    #check wether password and id are compatible
-    counter = 0
-
-    # You've got 5 tries to login the loop only runs if you have a low enough amount of tries and enter the wrong password
-    while(not requests.get(base_api + "/validate/" + str(trader_id) + "/" + str(pasw)).json().get("result") and counter != 5):
-       print("Wrong password")
-       print(str(5 - counter) + " try/tries left")
-       counter += 1
-       pasw = input("Try again: ")
-       print(requests.get(base_api + "/validate/" + str(trader_id) + "/" + str(pasw)).json().get("result"))
-
-       #Right pw entered?
-       if(requests.get(base_api + "/validate/" + str(trader_id) + "/" + str(pasw)).json().get("result")):
-        return trader_id
-
-    # Right pw entered?
-    if(requests.get(base_api + "/validate/" + str(trader_id) + "/" + str(pasw)).json().get("result")):
-        return trader_id
-
-    #if a trader enters faulty too many times his account will be removed
-    print("Too many false tries, your account will be deleted")
-    requests.get(base_api + "/remove-trader/" +str(trader_id))
-    return trader_id
-
+        return id
 
 
 
