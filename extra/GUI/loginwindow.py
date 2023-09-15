@@ -17,7 +17,7 @@ from PySide6.QtCore import Slot
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
-#     pyside6-uic form.ui -o ui_form.py, or
+#     pyside6-uic login.ui -o ui_loginwindow.py, or
 #     pyside2-uic form.ui -o ui_form.py
 from ui_login import Ui_LoginWindow
 
@@ -37,8 +37,8 @@ class LoginWindow(QWidget):
         self.ui.setupUi(self)
 
         #declare password and id
-        self.ID: int
-        self.password: str
+        self.ID: int = None
+        self.password: str = None
 
         #connecdt lineEdits to their corresponding slot functions
         self.ui.lineEditID.textChanged.connect(self.updateID)
@@ -61,8 +61,11 @@ class LoginWindow(QWidget):
     @Slot()
     def login(self) -> int:
         base_api = "http://localhost:8000"
-        id = str(self.ID)
-        pw = str(self.password)
+        try:
+            id = str(self.ID)
+            pw = str(self.password)
+        except AttributeError as e:
+            return None
         
         
         resp: requests.Response = requests.get(base_api + "/validate/" + id + "/" + pw)
