@@ -5,6 +5,7 @@ import time
 import uvicorn
 import os
 import json
+import pandas
 import requests
 import csv
 from market import Market
@@ -29,12 +30,21 @@ def updater():
 @apiobj.get("/refresh-values")
 async def refresh():
     #Write the current value of all goods in a csv sheet
-    with open('GUI/values.csv', 'w', newline='') as csvfile:
-            spamwriter = csv.writer(csvfile, delimiter=',',
-                                    quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    # with open('GUI/values.csv', 'w', newline='') as csvfile:
+    #         spamwriter = csv.writer(csvfile, delimiter=',',
+    #                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
             
-            for key,value in m.get_goods().items():
-                spamwriter.writerow([value.get_value()])
+    #         for key,value in m.get_goods().items():
+    #             spamwriter.writerow([value.get_value()])
+
+    df = pandas.DataFrame()
+    index = 0
+    for key,value in m.get_goods().items():    
+        df.insert(index, key, [value.get_value()])
+        index +=1
+
+    df.to_csv("GUI/values.csv", index=False)
+   
 
 
 
@@ -88,6 +98,15 @@ async def getGoods():
     for key,val in m.get_goods().items():
         marketgoods[key] = val.get_value()
     return marketgoods
+
+@apiobj.get("/get-biggest-value")
+async def getBiggestValue():
+    val = 0
+    for key,valu in m.get_goods().items():
+        if valu.get_value() > val:
+            val = valu.get_value()
+    print(val)
+    return {"value" : float(val)}
 
 #Return a dictinoary of the goods in the traders posession
 @apiobj.get("/get-traders-goods/{id}")

@@ -22,10 +22,6 @@ from PySide6.QtCore import Slot
 from ui_login import Ui_LoginWindow
 
 
-def update():
-    while(True):
-        requests.get("http://localhost:8000/refresh-values")
-        time.sleep(5)
 
 
 
@@ -83,8 +79,6 @@ class LoginWindow(QWidget):
 
 
 if __name__ == "__main__":
-    update_thread = threading.Thread(target=update, daemon=True)
-    update_thread.start()
     app = QApplication(sys.argv)
     widget = LoginWindow()
     widget.show()
